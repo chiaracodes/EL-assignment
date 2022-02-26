@@ -4,7 +4,7 @@ from regressiontree import TreeNode
 def load_dataset(data = "wine"):
     
     if data == "wine":
-        df = datasets.load_wine(as_frame = True)
+        df = datasets.load_diabetes(as_frame = True)
     else: print('dataset not available')
     
     #save X and Y in the right format
@@ -16,7 +16,7 @@ def load_dataset(data = "wine"):
 if __name__ == "__main__":
 
     X, Y = load_dataset(data = "wine")
-    tree = TreeNode(X,Y)
+    tree = TreeNode(X,Y, max_depth=5)
 
     #grow the tree
     tree.grow_tree()
