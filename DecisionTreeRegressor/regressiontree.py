@@ -169,13 +169,13 @@ class TreeNode():
                 self.left.grow_tree()
 
                 right_node = TreeNode(
-                    df_left[self.features],
-                    df_left['Y'].values.tolist(),
+                    df_right[self.features],
+                    df_right['Y'].values.tolist(),
                     depth = self.depth+1,
                     max_depth = self.max_depth,
                     min_samples_split= self.min_samples_split,
-                    node_type='left node',
-                    rule = f"{best_feature} <= {round(best_value,3)}"
+                    node_type='right node',
+                    rule = f"{best_feature} > {round(best_value,3)}"
                 )
 
                 self.right = right_node
