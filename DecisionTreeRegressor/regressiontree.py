@@ -11,8 +11,7 @@ class TreeNode():
         depth = None,
         node_type = None,
         rule = None
-        ):
-        
+        ):        
         #save the inputs
         self.X = X
         self.Y = Y
@@ -131,7 +130,7 @@ class TreeNode():
     def random_split(self) -> tuple:
         pass
 
-    def grow_tree(self) -> None:
+    def fit(self) -> None:
         '''
         This method grows the tree recursively
         '''
@@ -166,7 +165,7 @@ class TreeNode():
                 )
 
                 self.left = left_node
-                self.left.grow_tree()
+                self.left.fit()
 
                 right_node = TreeNode(
                     df_right[self.features],
@@ -179,8 +178,30 @@ class TreeNode():
                 )
 
                 self.right = right_node
-                self.right.grow_tree()
+                self.right.fit()
 
+    def predict_one(self, x) -> float:
+        '''
+        x =  row of a pd.DataFrame
+        Return the predicted value according to the decision tree fitted
+        It is the basis for the method predict
+        The function is defined recursively
+        '''
+
+        #check if at the node there is a split
+        if (self.left is not None) and (self.right is not None):
+            #check if need to go on the left or the right
+            if x[self.best_feature]<=self.best_value:
+                print("going to the left")
+                self.left.predict_one(x)
+            else:
+                print("going to the right")
+                self.right.predict_one(x)
+
+        #if we are at a end node, return the predicted value -> mean
+        else:
+            y_hat = self.ymean
+            return y_hat
 
     def info(self, width = 4) -> None:
         '''
