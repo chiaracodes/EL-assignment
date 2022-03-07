@@ -180,28 +180,28 @@ class TreeNode():
                 self.right = right_node
                 self.right.fit()
 
-    def predict_one(self, x) -> float:
+    def predict_one(self, x):
         '''
         x =  row of a pd.DataFrame
         Return the predicted value according to the decision tree fitted
         It is the basis for the method predict
         The function is defined recursively
         '''
-
+        right = self.right
+        left = self.left
+        yhat = self.ymean
+        feature = self.best_feature
+        value = self.best_value
         #check if at the node there is a split
-        if (self.left is not None) and (self.right is not None):
-            #check if need to go on the left or the right
-            if x[self.best_feature]<=self.best_value:
+        if right == None:
+            return yhat
+        else:
+            if x[feature]<=value:
                 print("going to the left")
-                self.left.predict_one(x)
+                left.predict_one(x)
             else:
                 print("going to the right")
-                self.right.predict_one(x)
-
-        #if we are at a end node, return the predicted value -> mean
-        else:
-            y_hat = self.ymean
-            return y_hat
+                right.predict_one(x)
 
     def info(self, width = 4) -> None:
         '''
