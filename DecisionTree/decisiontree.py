@@ -31,13 +31,14 @@ class DecisionTreeClassifier():
         
     #build tree if the classified class is impure   
     #useing Node class defined above
-    def build_tree(self, dataset= None, X = None, Y = None, curr_depth=0):
+    def build_tree(self, dataset, curr_depth=0):
         ''' recursive function to build the tree ''' 
+        
         X, Y = dataset[:,:-1], dataset[:,-1]
         num_samples, num_features = np.shape(X)
         
         # split until stopping conditions are met
-        if num_samples>=self.min_samples_split and curr_depth<self.max_depth:
+        if num_samples>=self.min_samples_split and curr_depth<=self.max_depth:
             # find the best split
             best_split = self.get_best_split(dataset, num_samples, num_features)
             # check if information gain is positive
@@ -155,7 +156,7 @@ class DecisionTreeClassifier():
         ''' function to train the tree '''
         if len(Y.shape) != len(X.shape):
             Y = Y.reshape(-1,1)
-        
+            
         dataset = np.concatenate((X, Y), axis=1)
         self.root = self.build_tree(dataset)
     
@@ -292,7 +293,7 @@ class DecisionTreeRegressor():
             tree = self.root
 
         if tree.value is not None:
-            print(tree.value)
+            print(int(tree.value))
 
         else:
             print("X_"+str(tree.feature_index), "<= threshold:", tree.threshold.round(4), ", info_gain:", round(tree.info_gain, 4))
@@ -305,7 +306,7 @@ class DecisionTreeRegressor():
         ''' function to train the tree '''
         if len(Y.shape) != len(X.shape):
             Y = Y.reshape(-1,1)
-        
+            
         dataset = np.concatenate((X, Y), axis=1)
         self.root = self.build_tree(dataset)
     
