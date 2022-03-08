@@ -142,10 +142,10 @@ class DecisionTreeClassifier():
             tree = self.root
 
         if tree.value is not None:
-            print(tree.value)
+            print(int(tree.value))
 
         else:
-            print("X_"+str(tree.feature_index), "<=", tree.threshold, "?", tree.info_gain)
+            print("X_"+str(tree.feature_index), "<= threshold:", tree.threshold.round(4), ", info_gain:", round(tree.info_gain, 4))
             print("%sleft:" % (indent), end="")
             self.print_tree(tree.left, indent + indent)
             print("%sright:" % (indent), end="")
@@ -153,6 +153,8 @@ class DecisionTreeClassifier():
     
     def fit(self, X, Y):
         ''' function to train the tree '''
+        if len(Y.shape) != len(X.shape):
+            Y = Y.reshape(-1,1)
         
         dataset = np.concatenate((X, Y), axis=1)
         self.root = self.build_tree(dataset)
@@ -293,7 +295,7 @@ class DecisionTreeRegressor():
             print(tree.value)
 
         else:
-            print("X_"+str(tree.feature_index), "<=", tree.threshold, "?", tree.info_gain)
+            print("X_"+str(tree.feature_index), "<= threshold:", tree.threshold.round(4), ", info_gain:", round(tree.info_gain, 4))
             print("%sleft:" % (indent), end="")
             self.print_tree(tree.left, indent + indent)
             print("%sright:" % (indent), end="")
@@ -301,6 +303,8 @@ class DecisionTreeRegressor():
     
     def fit(self, X, Y):
         ''' function to train the tree '''
+        if len(Y.shape) != len(X.shape):
+            Y = Y.reshape(-1,1)
         
         dataset = np.concatenate((X, Y), axis=1)
         self.root = self.build_tree(dataset)
