@@ -38,7 +38,7 @@ class DecisionTreeClassifier():
         num_samples, num_features = np.shape(X)
         
         # split until stopping conditions are met
-        if num_samples>=self.min_samples_split and curr_depth<=self.max_depth:
+        if num_samples>=self.min_samples_split and curr_depth<self.max_depth:
             # find the best split
             best_split = self.get_best_split(dataset, num_samples, num_features)
             # check if information gain is positive
@@ -195,7 +195,7 @@ class DecisionTreeRegressor():
         num_samples, num_features = np.shape(X)
         
         # split until stopping conditions are met
-        if num_samples>=self.min_samples_split and curr_depth<=self.max_depth:
+        if num_samples>=self.min_samples_split and curr_depth<self.max_depth:
             # find the best split
             best_split = self.get_best_split(dataset, num_samples, num_features)
             # check if information gain is positive
