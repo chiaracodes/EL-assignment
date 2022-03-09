@@ -1,5 +1,16 @@
 import numpy as np
 
+def check_sizes(y_real, y_predicted):
+    if len(y_real)!= len(y_predicted):
+        raise(ValueError("Y real and Y predicted must have the same length"))
+
+    if type(y_predicted)!=np.array:
+        y_predicted = np.array(y_predicted)
+
+    if y_predicted.shape != y_real.shape:
+        y_real = y_real.reshape(y_predicted.shape)
+    return y_real,y_predicted
+
 def accuracy(y_real, y_predicted):
     ''''
     y_real: np.array(n_samples, 1)
@@ -7,8 +18,8 @@ def accuracy(y_real, y_predicted):
 
     Return the accuracy
     '''
-    if len(y_real)!= len(y_predicted):
-        raise(ValueError("Y real and Y predicted must have the same length"))
+    y_real, y_predicted = check_sizes(y_real, y_predicted)
+
     return np.sum(y_real == y_predicted)/len(y_real)
 
 def mse(y_real, y_predicted):
@@ -18,9 +29,12 @@ def mse(y_real, y_predicted):
 
     Return the mse
     '''
-    if len(y_real)!= len(y_predicted):
-        raise(ValueError("Y real and Y predicted must have the same length"))
-    return (np.sum((y_real-y_predicted)**2))/len(y_real)
+    y_real, y_predicted = check_sizes(y_real, y_predicted)
+
+    difference_array = np. subtract(y_real, y_predicted)
+    squared_array = np. square(difference_array)
+    mse = squared_array. mean()
+    return mse
 
 def mae(y_real, y_predicted):
     ''''
@@ -29,8 +43,8 @@ def mae(y_real, y_predicted):
 
     Return the mae
     '''
-    if len(y_real)!= len(y_predicted):
-        raise(ValueError("Y real and Y predicted must have the same length"))
+    y_real, y_predicted = check_sizes(y_real, y_predicted)
+
     return np.sum(np.abs(y_real-y_predicted))/len(y_real)
 
 def rmse(y_real, y_predicted):
@@ -40,8 +54,8 @@ def rmse(y_real, y_predicted):
 
     Return the rmse
     '''
-    if len(y_real)!= len(y_predicted):
-        raise(ValueError("Y real and Y predicted must have the same length"))
+    y_real, y_predicted = check_sizes(y_real, y_predicted)
+    
     return np.sqrt(np.sum((y_real-y_predicted)**2)/len(y_real))
 
 
