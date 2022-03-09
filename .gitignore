@@ -1,2 +1,4 @@
 node_modules/
 DecisionTree/__pycache__/decisiontree.cpython-38.pyc
+DecisionTree/__pycache__/model_selection.cpython-38.pyc
+DecisionTree/__pycache__/metrics.cpython-38.pyc
