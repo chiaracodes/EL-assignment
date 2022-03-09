@@ -1,2 +1,3 @@
 node_modules/
 DecisionTree/__pycache__/decisiontree.cpython-38.pyc
+*.pyc
