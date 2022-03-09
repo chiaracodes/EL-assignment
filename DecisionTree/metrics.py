@@ -20,10 +20,7 @@ def mse(y_real, y_predicted):
     '''
     if len(y_real)!= len(y_predicted):
         raise(ValueError("Y real and Y predicted must have the same length"))
-    difference_array = np.subtract(y_real, y_predicted)
-    squared_array = np.square(difference_array)
-    mse = squared_array.mean()
-    return mse
+    return np.sum((y_real-y_predicted)**2)/len(y_real)
 
 def mae(y_real, y_predicted):
     ''''
