@@ -22,6 +22,6 @@ Implementing a classification and regression algorithm for decision tree.
 The dicisiontree.py we have two main class the DecisionTreeClassifier for implementing classification and the DecisionTreeRegressor for implementing the regression.
 The main funtions is the decisiontree are build_tree and best_split. We get the best split by comaring the information gain after and before the split.
 - For DecisionTreeClassifier we use the gini index and weight of the particular split part to calculate the information gain.
-- 
+- For DecissionTreeRegressor we use the mean square error and mean to calculate the information gain.
 
 The DecisionTreeExample contains examples on how to implement these classes and compared its accuracy with that of the sickit-learn library.
