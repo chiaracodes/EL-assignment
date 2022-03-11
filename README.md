@@ -12,7 +12,9 @@ Inside this folder we find 3 jupyter notebook files:
 
 - Bagging with SVM Cheng: Following Maria's proprocessing and feature engineering, this file includes an optimized Ensemble Support Vector Machines model and several untuned Tree-Based Models. 
 
-- MultiNaiveBayes_BinarySVM_Lauren:
+- MultiNaiveBayes_BinarySVM_Lauren: This contains my initial work to explore and preprocess the data. I also explored simple ML algos to be later considered in ensemble methods. I looked at Multinominal Naive Bayes for the multiclassification as well as SVM for the binary classification. As for implementing ensemble methods, we saw how good Random Forest performed in the ensemble, so I tried a model that should have degraded results when using an ensemble method --> KNN.
+
+- KNNbaggingClassifier_Lauren: clean and organized version of the KNN bagging classification ensemble method that underperformed compared to the Random Forest ensemble.
 
 ### Part B
 Implementing a classification and regression algorithm for decision tree.
