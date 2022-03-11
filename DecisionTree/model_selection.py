@@ -41,65 +41,71 @@ def CVScore(model, X,Y, val = 0.2, n_splits = 5, metric = 'mse'):
     return np.mean(metrics), metrics
 
 
-class CVGridSearch(): 
+#### END #####
+
+#the following class was created to allow to perform grid search on our customer defined decision tree
+#It did not pass the beta testing since it has still some bugs
+# We leave it here as a reference or in the case we would decide to correct the bugs later on
+
+# class CVGridSearch(): 
               
-    def __init__(
-        self,
-        model: str,
-        parameters: dict,
-        n_splits,
-        metric = 'mse',
-        val = 0.2,
-        verbose = 0):
+#     def __init__(
+#         self,
+#         model: str,
+#         parameters: dict,
+#         n_splits,
+#         metric = 'mse',
+#         val = 0.2,
+#         verbose = 0):
 
-        self.model = model
-        self.parameters = parameters
-        self.n_splits = n_splits
-        self.val = val
-        self.metric = metric
+#         self.model = model
+#         self.parameters = parameters
+#         self.n_splits = n_splits
+#         self.val = val
+#         self.metric = metric
 
-        #if during the fit it needs to print the results
-        self.verbose = verbose
+#         #if during the fit it needs to print the results
+#         self.verbose = verbose
 
-        #initialize empy table for the results
-        self.result = pd.DataFrame(columns = ["min_samples_split", "max_depth", "min_score", "max_score", "sd_score", "mean_score"])
+#         #initialize empy table for the results
+#         self.result = pd.DataFrame(columns = ["min_samples_split", "max_depth", "min_score", "max_score", "sd_score", "mean_score"])
 
-        #initialize dictionary with best parameters
-        self.best = {"min_samples_split":None, "max_depth":None}
-        self.best_score = None
+#         #initialize dictionary with best parameters
+#         self.best = {"min_samples_split":None, "max_depth":None}
+#         self.best_score = None
 
     
-    def fit(self, X, Y):
-        '''
-        Method of class CVGridSearch
-        For each set of parameters in the dictionary it fits the model and evaluate the accuracy using CVScore
-        It store the results as internal parameters of CVGridSearch
-        '''
-        min_samples_split = self.parameters["min_samples_split"]
-        max_depth = self.parameters["max_depth"]
+#     def fit(self, X, Y):
+#         '''
+#         Method of class CVGridSearch
+#         For each set of parameters in the dictionary it fits the model and evaluate the accuracy using CVScore
+#         It store the results as internal parameters of CVGridSearch
+#         '''
+#         min_samples_split = self.parameters["min_samples_split"]
+#         max_depth = self.parameters["max_depth"]
 
-        results = []
+#         results = []
 
-        print(f"Fitting the model {len(min_samples_split)*len(max_depth)*self.n_splits} times for {len(min_samples_split)*len(max_depth)} possible parameters combination")
+#         print(f"Fitting the model {len(min_samples_split)*len(max_depth)*self.n_splits} times for {len(min_samples_split)*len(max_depth)} possible parameters combination")
         
-        for sample, depth in ((x,y) for x in min_samples_split for y in max_depth):
-            if self.model == "DecisionTreeClassifier":
-                model = DecisionTreeClassifier(min_samples_split=sample, max_depth=depth)
-            else:
-                model = DecisionTreeRegressor(min_samples_split=sample, max_depth=depth)
+#         for sample, depth in ((x,y) for x in min_samples_split for y in max_depth):
+#             if self.model == "DecisionTreeClassifier":
+#                 model = DecisionTreeClassifier(min_samples_split=sample, max_depth=depth)
+#             else:
+#                 model = DecisionTreeRegressor(min_samples_split=sample, max_depth=depth)
             
-            _, scores = CVScore(model, X, Y, val = self.val, n_splits=self.n_splits, metric = self.metric)
+#             _, scores = CVScore(model, X, Y, val = self.val, n_splits=self.n_splits, metric = self.metric)
             
-            result = pd.DataFrame([[sample], [depth], [np.min(scores)], [np.max(scores)], [np.std(scores)],[np.mean(scores)]])
-            results.append(result)
+#             result = pd.DataFrame([[sample], [depth], [np.min(scores)], [np.max(scores)], [np.std(scores)],[np.mean(scores)]])
+#             results.append(result)
         
-        self.result = pd.concat(results, axis = 1)
+#         self.result = pd.concat(results, axis = 1)
 
-        if self.metric == 'accuracy':
-            self.best_score = self.result.mean_score.max()
+#         if self.metric == 'accuracy':
+#             self.best_score = self.result.mean_score.max()
 
-        else:
-            self.best_score = self.result.mean_score.min()
+#         else:
+#             self.best_score = self.result.mean_score.min()
         
-        self.best['min_samples_split'] = self.result.loc[self.result.mean_score == self.best_score, "min_samples_split"]
-        self.best['max_depth'] = self.result.loc[self.result.mean_score == self.best_score, "max_depth"]
+#         self.best['min_samples_split'] = self.result.loc[self.result.mean_score == self.best_score, "min_samples_split"]
+#         self.best['max_depth'] = self.result.loc[self.result.mean_score == self.best_score, "max_depth"]
