@@ -10,7 +10,7 @@ Inside this folder we find 3 jupyter notebook files:
 
 - DT_RF_Boosting_Maria: This contains all the proprocessing, feature engineering and modelling related to the following models: decision tree, random forest and boosting algorithms such as Gradient Boosting, Extreme Gradient Boosting, Adaptive Boosting and Light Gradient Boosting Machine. This was developed by Maria Isabel Vera.
 
-- Bagging with SVM Cheng:
+- Bagging with SVM Cheng: Following Maria's proprocessing and feature engineering, this file includes an optimized Ensemble Support Vector Machines model and several untuned Tree-Based Models. 
 
 - MultiNaiveBayes_BinarySVM_Lauren:
 
