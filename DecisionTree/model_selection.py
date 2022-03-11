@@ -3,7 +3,7 @@ import pandas as pd
 from decisiontree import *
 from metrics import *
 
-def train_test_split(X, Y, val = 0.2):
+def train_test_split(X, Y, val = 0.2, seed = None):
     '''
     X = np.array in shape (n_samples, n_parameter)
     Y = np.array in shape (n_samples, 1) or (n_samples,)
@@ -11,6 +11,8 @@ def train_test_split(X, Y, val = 0.2):
 
     Returns X_train, X_val,Y_train, Y_val
     '''
+    if seed != None:
+        random.seed(int(seed))
     indexes = random.sample(range(len(X)), len(X))
     n_train = int(len(X)*(1-val))
     train_indexes = indexes[:n_train]
